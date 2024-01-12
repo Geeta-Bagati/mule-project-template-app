@@ -1,0 +1,24 @@
+api:
+  id: "19059502"                                  #add your API ID
+  name: "mule-project-kick-start-template"        #add your project name  
+  env: "local"                                    #local environment
+  viewConsole: "false"                            #make "true" to view console
+  buildversion: "1.0.0"
+ 
+until-successful:
+  maxRetries: "2"
+  millisBetweenRetries: "2000"
+     
+#http listener configuration  
+http:
+  host: "0.0.0.0"
+  port: "8081"
+  path: "/*" 
+  basePath: ""
+  
+#SIMILARLY ADD OTHER NON-SECURE CONFIGURATIONS
+#database connector configuration                 
+db:
+  host: "csaazure.database.windows.net"
+  port: "1433"
+  dbName: "mydb"

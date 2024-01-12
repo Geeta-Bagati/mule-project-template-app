@@ -1,0 +1,73 @@
+#%RAML 1.0
+title: mule-project-kick-start-template
+description: 
+version: v1.0.0
+protocols: [HTTP, HTTPS]
+mediaType:
+  - application/json
+
+uses:
+  lib: library.raml
+
+/api/v1:
+  /ping:
+    get:
+      is: [lib.clientIdEnforcement,lib.errorResp,lib.correlationIdRequired]
+      displayName: Return API Status
+      description: This endpoint is used to check the availability of the API.
+      responses:
+        200: 
+          body:
+            application/json:
+              type: lib.pingResp
+              example: !include /examples/ping/pingResponse.json
+  
+  /health-check:
+    get:
+      is: [lib.clientIdEnforcement,lib.errorResp,lib.correlationIdRequired]
+      displayName: Return Associated API and service Status
+      description: This endpoint provides information about the health status of the API.
+      responses:
+        200: 
+          body:
+            application/json:
+              type: lib.healthCheckResp
+              example: !include /examples/health-check/healthCheckResponse.json
+ 
+  /employee:
+    get:
+      displayName: greetings
+      description: |
+        greetings with your full name
+      is: [lib.errorResp,lib.correlationIdRequired,lib.clientIdEnforcement]
+      queryParameters:
+        firstName:
+          type: string
+          required: true
+          example: your first name
+        lastName:
+          type: string
+          required: true
+          example: your last name    
+      responses:
+        200:
+          body:
+            application/json:
+              type: lib.greetingsResp
+              example: !include /examples/endpoints/employee/greetings/greetingsResponseExample.json
+
+    post:
+      displayName: Create Job Listings
+      description: |
+        Create a new Job Listings
+      is: [lib.errorResp,lib.correlationIdRequired,lib.clientIdEnforcement]
+      body:
+        application/json:
+          type: lib.createEmployeeReq
+          example: !include /examples/endpoints/employee/createEmployee/createEmployeeRequestExample.json
+      responses:
+        201:
+          body:
+            application/json:
+              type: lib.createEmployeeResp
+              example: !include /examples/endpoints/employee/createEmployee/createEmployeeResponseExample.json

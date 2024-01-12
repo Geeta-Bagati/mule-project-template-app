@@ -1,0 +1,11 @@
+#Anypoint Platform creds
+anypoint:
+  platform:
+    client_id: "provide anypoint platform client Id"
+    client_secret: "provide anypoint platform client secret"
+
+#SIMILARLY ADD OTHER SECURE CONFIGURATIONS    
+#Database Creds
+db:
+  user: "![/nOAL1OCBLpfDivmumSTsg==]"
+  password: "![IUV1t6qhVh1XnNBiRLbmrA==]"

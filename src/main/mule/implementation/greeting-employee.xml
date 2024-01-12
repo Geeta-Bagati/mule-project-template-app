@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="greeting-employee-subflow"
+		doc:id="a5b73e70-fd55-4542-987f-1ea1444c24b4">
+		<logger level="INFO" doc:name="Start Log"
+			doc:id="b716feea-5490-473a-a21b-2f2db7e15829"
+			message="Greeting employee flow started." />
+		<ee:transform doc:name="Set Greeting Response"
+			doc:id="114a3e90-bf28-4089-a4ae-698a4178bec1">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Welcome onboard " ++ vars.firstName ++ " " ++ vars.lastName
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Log"
+			doc:id="ab44c1cc-3a96-48a9-85d9-349d87ac0486"
+			message="Greeting employee flow ended." />
+	</sub-flow>
+</mule>

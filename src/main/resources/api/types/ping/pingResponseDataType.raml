@@ -1,0 +1,23 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  status:
+    type: string
+    enum:
+      - UP
+      - Down
+      - Unkown
+    example: UP
+    required: false
+  api:
+    type: string
+    example: Mule Project Kick Start Template
+    required: false
+  env:
+    type: string
+    example: dev
+    required: false
+  timestamp:
+    type: string
+    example: 10/02/0203
+    required: false

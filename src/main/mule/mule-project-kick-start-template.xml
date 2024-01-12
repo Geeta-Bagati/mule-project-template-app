@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+    <apikit:config name="mule-project-kick-start-template-config" api="mule-project-kick-start-template.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <flow name="mule-project-kick-start-template-main" doc:id="1ad27f8d-6a01-4f7e-81a6-b33faeff1c2a">
+		<http:listener doc:name="Listener" doc:id="8b775fe3-ce7b-4177-b1ff-485885f56331" config-ref="http-listener-config" path="${http.path}">
+			<http:response statusCode="#[vars.httpStatus default 200]">
+				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]">
+				<http:body><![CDATA[#[payload]]]></http:body>
+				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<set-variable value='#[%dw 2.0&#10;output application/json&#10;---&#10;attributes.headers."x-correlation-id" default correlationId]' doc:name="set var correlationId" doc:id="5247fd17-3a42-431d-94e3-d15436bdd12b" variableName="correlationId" />
+		<logger level="INFO" doc:name="mule-project-kick-start-template-api started" doc:id="6cd45b3b-f9b4-4fee-9bf6-4850b916a6db" message='#[vars.correlationId default "" ++ " mule-project-kick-start-template-api started - at : " ++ now()]' />
+		<apikit:router config-ref="mule-project-kick-start-template-config" />
+		<logger level="INFO" doc:name="mule-project-kick-start-template-api ended" doc:id="407cbd87-1e2e-4e58-a705-4a4c10543dee" message='#[vars.correlationId default "" ++ " mule-project-kick-start-template-api ended - at : " ++ now()]' />
+	</flow>
+	<flow name="mule-project-kick-start-template-console" doc:id="67ae5a96-d3a3-4ac5-b424-339aa826c81a">
+		<http:listener doc:name="Listener" doc:id="e473c95d-12bd-465b-a7d2-bde01716c321" config-ref="http-listener-config" path="/console/*">
+			<http:response statusCode="#[vars.httpStatus default 200]">
+				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]">
+				<http:body><![CDATA[#[payload]]]></http:body>
+				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<choice doc:name="Enable/Disable Console" doc:id="42288dc7-e930-45a2-b2d8-e5ff7593d3af">
+			<when expression="${api.viewConsole} ">
+				<apikit:console config-ref="mule-project-kick-start-template-config" />
+			</when>
+			<otherwise>
+				<ee:transform doc:name="The Console is disabled." doc:id="7ffdcf80-a16a-4b98-a72b-8d009c1642a9">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+"The Console is disabled."]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="get:\api\v1\ping:mule-project-kick-start-template-config" doc:id="e3cf0b1a-8d42-42ef-8dde-899477e78faa">
+		<logger level="INFO" doc:name="Start Log" doc:id="110d5131-f042-4081-8541-3f6f959ef61e" message='#[vars.correlationId default "" ++ " ping flow started - at : " ++ now()]' />
+		<ee:transform doc:name="Set Response" doc:id="e2b9183f-6505-4647-b511-3d0dd0c24cec">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "UP",
+  api: "${api.name}",
+  env: "${api.env}",
+  timestamp: now() as String {format: "dd/MM/yyyy HH:mm:SS"}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Log" doc:id="11da7e11-324a-463e-b552-195bdafea87a" message='#[vars.correlationId default "" ++ " ping flow ended - at : " ++ now()]' />
+	</flow>
+	<flow name="get:\api\v1\health-check:mule-project-kick-start-template-config" doc:id="359b2e6b-efb1-4785-aa31-0c24017c786c">
+		<logger level="INFO" doc:name="Start Log" doc:id="2b6de55e-65e7-42e7-adaf-571ebe5e7b57" message='#[vars.correlationId default "" ++ " health-check flow started - at : " ++ now()]' />
+		<ee:transform doc:name="Set Response" doc:id="79964e47-4fd5-4a50-8154-6ed4be3b36a6">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  response: {
+    application: "${api.name}",
+    buildversion: "${api.buildversion}",
+    buildTimestamp: now() as String {format: "dd/MM/yyyy HH:mm:SS"},
+    status: "UP",
+    env: "${api.env}",
+    systems: [
+      {
+        name: "Mule Project Kick Start Template",
+        status: "UP"
+      }
+    ]
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Log" doc:id="41c1c5e7-a879-4209-b0db-9ea16ddf959f" message='#[vars.correlationId default "" ++ " health-check flow ended - at : " ++ now()]' />
+	</flow>
+	<flow name="get:\api\v1\employee:mule-project-kick-start-template-config" doc:id="6143d170-1814-4b19-b1f5-4e1379d88268" >
+		<ee:transform doc:name="query parameters variable" doc:id="5cb04f5e-c25e-40b6-b911-4b15ace18966" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="firstName" ><![CDATA[%dw 2.0
+output application/json
+---
+attributes.queryParams.firstName as String default ""]]></ee:set-variable>
+				<ee:set-variable variableName="lastName" ><![CDATA[%dw 2.0
+output application/json
+---
+attributes.queryParams.lastName as String default ""]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="greeting-employee-subflow" doc:id="28ff5360-cc6a-42c9-aee9-2ec6f83380bc" name="greeting-employee-subflow" />
+	</flow>
+	<flow name="post:\api\v1\employee:application\json:mule-project-kick-start-template-config" doc:id="68a2e83d-c2e7-45f8-a9db-27f8ca393232" >
+		<flow-ref doc:name="create-employee-subflow" doc:id="4e79a8ba-af76-4a45-b296-cfc2124da719" name="create-employee-subflow" />
+	</flow>
+</mule>

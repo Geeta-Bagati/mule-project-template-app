@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="create-employee-subflow"
+		doc:id="bc0e3ce5-2692-460e-b451-b76edb452098">
+		<logger level="INFO" doc:name="Start Log"
+			doc:id="3236580d-ef8b-454f-b08a-253035e0db0f"
+			message="Create employee flow started." />
+		<ee:transform doc:name="Set Request"
+			doc:id="a9adbd14-0b06-49f3-9c9c-f456d8a06c4e">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "name": payload.employeeName,
+    "job": payload.title
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST"
+			doc:name="Consume Reqres Employee Service"
+			doc:id="0a87b20d-7310-47d3-ad80-81f2d0b44bde"
+			url="https://reqres.in/api/users1" />
+		<ee:transform doc:name="Set Response"
+			doc:id="d75ac989-09d1-4e68-a16d-38eb28bb7ed4">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Log"
+			doc:id="3d07d007-85f4-457e-8bbd-38dbc4170cf9"
+			message="Create employee flow ended." />
+	</sub-flow>
+</mule>

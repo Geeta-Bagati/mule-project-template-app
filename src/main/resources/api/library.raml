@@ -1,0 +1,16 @@
+#%RAML 1.0 Library
+traits:
+  clientIdEnforcement: !include /traits/clientIdEnforcement.raml
+  correlationIdRequired: !include /traits/correlationId.raml
+  errorResp: !include /traits/errorResponse.raml
+
+types:
+  successResp: !include /types/responses/successDataType/successResponse.raml
+  errorResp: !include /types/responses/errorDataType/errorResponse.raml
+  pingResp: !include /types/ping/pingResponseDataType.raml
+  healthCheckResp: !include /types/health-check/healthCheckDataType.raml
+
+#employee
+  greetingsResp: !include /types/endpoints/employee/greetings/greetingsResponseDataType.raml
+  createEmployeeReq: !include /types/endpoints/employee/createEmployee/createEmployeeRequestDataType.raml
+  createEmployeeResp: !include /types/endpoints/employee/createEmployee/createEmployeeResponseDataType.raml

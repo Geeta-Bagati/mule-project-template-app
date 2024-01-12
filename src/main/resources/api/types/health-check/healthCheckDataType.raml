@@ -1,0 +1,47 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  response:
+    type: object
+    properties:
+      application:
+        type: string
+        example: Mule Project Kick Start Template
+        required: false
+      buildversion:
+        type: string
+        example: 1.0.0
+        required: false
+      buildTimestamp:
+        type: string
+        example: 01/01/2017 00:01:00.111
+        required: false
+      status:
+        type: string
+        enum:
+          - UP
+          - Down
+          - Unkown
+        example: UP
+        required: false
+      env:
+        type: string
+        example: dev
+        required: false
+      systems:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Mule Project Kick Start Template
+              required: false
+            status:
+              type: string
+              enum:
+                - UP
+                - Down
+                - Unkown
+              example: UP
+              required: false

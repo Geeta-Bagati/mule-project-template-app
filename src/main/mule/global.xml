@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<http:listener-config name="http-listener-config"
+		doc:name="HTTP Listener config"
+		doc:id="ddab9000-9cf8-4c08-aaca-ed783234a057">
+		<http:listener-connection host="${http.host}"
+			port="${http.port}" />
+	</http:listener-config>
+	<api-gateway:autodiscovery apiId="${api.id}"
+		ignoreBasePath="true" doc:name="api-autodiscovery"
+		doc:id="e4298487-8e95-471d-928c-5317c5b0ba43"
+		flowRef="mule-project-kick-start-template-main" />
+	<configuration-properties
+		doc:name="configuration-properties-env"
+		doc:id="dccce6b5-f945-4115-9bdf-9e510f4c52e5"
+		file="properties/${mule.env}.yaml " />
+	<secure-properties:config
+		name="configuration-properties-secured-env"
+		doc:name="Secure Properties Config"
+		doc:id="55597d0b-fc6f-4231-8fb2-ff70220a5286"
+		file="secure/properties/${mule.env}-secure.yaml" key="${mule.key}" />
+	<global-property doc:name="Global Property"
+		doc:id="824e03a2-bad1-439a-a5e1-65fe26fdd9b5" name="mule.env"
+		value="local" />
+	<global-property doc:name="Global Property"
+		doc:id="a732a422-ad61-4bdb-9267-78aa52bd752a" name="mule.key"
+		value="mulesoft12345678" />
+	<configuration
+		doc:name="global-error-handler-configuration"
+		doc:id="57f63265-b4a3-4491-ab6d-b78db6d5120b"
+		defaultErrorHandler-ref="global-error-handler" />
+</mule>
