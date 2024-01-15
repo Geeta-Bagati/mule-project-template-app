@@ -36,15 +36,15 @@
 						<password>${password}</password>
 						<environment>${env}</environment>
 						<applicationName>${name}-${env}</applicationName>
-						<region>${region}</region>
-						<workers>${workers}</workers>
-						<workerType>${workerType}</workerType>
+						<region>us-east-1</region>
+						<workers>1</workers>
+						<workerType>MICRO</workerType>
 						<objectStoreV2>true</objectStoreV2>
 						<properties>
 							<anypoint.platform.config.analytics.agent.enabled>true</anypoint.platform.config.analytics.agent.enabled>
-							<anypoint.platform.client_id>${platform.client_id}</anypoint.platform.client_id>
-							<anypoint.platform.client_secret>${platform.client_secret}</anypoint.platform.client_secret>
-							<api.id>${api.id}</api.id>
+							<anypoint.platform.client_id>c426202298a44b56b00be1eeee160ac5</anypoint.platform.client_id>
+							<anypoint.platform.client_secret>09e7551A8e1749f6BBE1d48EA7F0a274</anypoint.platform.client_secret>
+							<api.id>19235095</api.id>
 						</properties>
 					</cloudHubDeployment>
 				</configuration>
