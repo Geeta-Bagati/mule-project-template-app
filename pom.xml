@@ -35,7 +35,7 @@
 						<username>${username}</username>
 						<password>${password}</password>
 						<environment>${env}</environment>
-						<applicationName>${project.artifactId}-${env}</applicationName>
+						<applicationName>${app.name}</applicationName>
 						<region>${region}</region>
 						<workers>${workers}</workers>
 						<workerType>${workerType}</workerType>
