@@ -41,6 +41,7 @@
 						<workerType>MICRO</workerType>
 						<objectStoreV2>true</objectStoreV2>
 						<properties>
+							<anypoint.platform.config.analytics.agent.enabled>true</anypoint.platform.config.analytics.agent.enabled>
 							<anypoint.platform.client_id>c426202298a44b56b00be1eeee160ac5</anypoint.platform.client_id>
 							<anypoint.platform.client_secret>09e7551A8e1749f6BBE1d48EA7F0a274</anypoint.platform.client_secret>
 							<api.id>19235095</api.id>
