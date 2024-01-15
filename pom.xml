@@ -35,7 +35,7 @@
 						<username>${username}</username>
 						<password>${password}</password>
 						<environment>${env}</environment>
-						<applicationName>${name}-${env}</applicationName>
+						<applicationName>${project.name}-${env}</applicationName>
 						<region>us-east-1</region>
 						<workers>1</workers>
 						<workerType>MICRO</workerType>
