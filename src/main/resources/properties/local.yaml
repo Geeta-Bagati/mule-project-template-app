@@ -1,6 +1,6 @@
 api:
   id: "19059502"                                  #add your API ID
-  name: "mule-project-kick-start-template"        #add your project name  
+  name: "mule-project-template"                   #add your project name  
   env: "local"                                    #local environment
   viewConsole: "false"                            #make "true" to view console
   buildversion: "1.0.0"

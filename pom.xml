@@ -3,12 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>com.mycompany</groupId>
 	<artifactId>mule-project-template</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
-
 	<name>mule-project-template</name>
 
 	<properties>
@@ -41,9 +39,11 @@
 						<region>us-east-1</region>
 						<workers>1</workers>
 						<workerType>MICRO</workerType>
+						<objectStoreV2>true</objectStoreV2>
 						<properties>
 							<anypoint.platform.client_id>c426202298a44b56b00be1eeee160ac5</anypoint.platform.client_id>
 							<anypoint.platform.client_secret>09e7551A8e1749f6BBE1d48EA7F0a274</anypoint.platform.client_secret>
+							<api.id>19235095</api.id>
 						</properties>
 					</cloudHubDeployment>
 				</configuration>
