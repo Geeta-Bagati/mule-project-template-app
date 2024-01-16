@@ -1,0 +1,32 @@
+{
+  "headers": {
+    "client_id": "8a56d60181e94c89ad8c386cf256a94b",
+    "client_secret": "a267369078cb40ca8b00F83d51a8069E",
+    "x-correlation-id": "7df3f349-1c0d-4e76-949f-5d6a9ba80faf",
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.36.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "66889716-e0e2-43ec-8824-09c9e31a847b",
+    "host": "localhost:8081",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "76"
+  },
+  "clientCertificate": null,
+  "method": "POST",
+  "scheme": "http",
+  "queryParams": {},
+  "requestUri": "/api/v1/employee",
+  "queryString": "",
+  "version": "HTTP/1.1",
+  "maskedRequestPath": "/api/v1/employee",
+  "listenerPath": "/*",
+  "relativePath": "/api/v1/employee",
+  "localAddress": "/127.0.0.1:8081",
+  "uriParams": {},
+  "rawRequestUri": "/api/v1/employee",
+  "rawRequestPath": "/api/v1/employee",
+  "remoteAddress": "/127.0.0.1:59547",
+  "requestPath": "/api/v1/employee"
+}

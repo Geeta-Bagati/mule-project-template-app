@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="mule-project-kick-start-template-test-suite.xml" />
+	<munit:test name="mule-project-kick-start-template-test-suite-get:\api\v1\employee:assert-equals" doc:id="1b983902-20f5-42c9-a4f8-38b239921986" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="a38577a1-fa4e-4513-8800-4e9a233d3305">
+				<munit:attributes value="#[readUrl('classpath://greetingemployeetestcasemanual/greeting_input_attributes.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\api\v1\employee:mule-project-kick-start-template-config" doc:id="15707827-1d7f-40ae-a0e4-fc3ffe496020" name="get:\api\v1\employee:mule-project-kick-start-template-config"/>
+		</munit:execution>
+		<munit:validation >
+			<logger level="INFO" doc:name="Logger" doc:id="0ce25fd1-afc3-4166-8509-f75263203013" message="#[payload]" />
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="3def9d76-c525-41fa-a2d6-b3be90fa0a2a" actual="#[payload.message]" expected='#["Welcome onboard Katy Perry"]' message="Response payload is not correct" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mule-project-kick-start-template-test-suite-get:\api\v1\employee:assert-that" doc:id="6107431c-e7a9-4de5-866d-80e47be4fe61" description="Test" >
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="7d4e9648-67d0-4398-96d5-a9a65f5ce8fc">
+				<munit:attributes value="#[readUrl('classpath://greetingemployeetestcasemanual/greeting_input_attributes.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\api\v1\employee:mule-project-kick-start-template-config" doc:id="6a2e6569-396a-4756-af3b-88b61267ef8a" name="get:\api\v1\employee:mule-project-kick-start-template-config" />
+		</munit:execution>
+		<munit:validation>
+			<logger level="INFO" doc:name="Logger" doc:id="e06a09f2-161e-45f0-ad4d-67a85d3ac182" message="#[payload]" />
+			<munit-tools:assert-that doc:name="Assert that" doc:id="7a50305c-b9dc-413b-b5ad-cc151560c874" expression="#[payload.message]" is='#[MunitTools::equalTo("Welcome onboard Katy Perry")]' />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mule-project-kick-start-template-test-suite-get:\api\v1\employee:assert-expression" doc:id="40f3d36e-9371-4763-b891-fd518c1f15f5" description="Test" >
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="eed2ac5a-047e-4a89-8746-bcd8a7b07378">
+				<munit:attributes value="#[readUrl('classpath://greetingemployeetestcasemanual/greeting_input_attributes.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\api\v1\employee:mule-project-kick-start-template-config" doc:id="0589ede5-73d4-4bcb-a273-7e7ae79d02ce" name="get:\api\v1\employee:mule-project-kick-start-template-config" />
+		</munit:execution>
+		<munit:validation>
+			<logger level="INFO" doc:name="Logger" doc:id="33ec94e0-38df-45a7-ac83-52208c9d0f3b" message="#[payload]" />
+			<munit-tools:assert doc:name="Assert expression" doc:id="4e12507c-8e3b-48e8-818b-3d672fb89816">
+				<munit-tools:that><![CDATA[#[%dw 2.0
+import greetingemployeetestcasemanual::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mule-project-kick-start-template-test-suite-get:\api\v1\employee:recorder" doc:id="17540230-863f-4f41-83f4-dc38f8cd2ad2" description="Test" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="f4f03c4f-2fe2-4b48-84f1-daa3024c9a71" >
+				<munit:payload value="#[readUrl('classpath://greetingemployeetestcaserecorder\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://greetingemployeetestcaserecorder\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://greetingemployeetestcaserecorder\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\api\v1\employee:mule-project-kick-start-template-config" doc:id="aa74487e-30b5-41f0-8f52-bc45f744a1e6" name="get:\api\v1\employee:mule-project-kick-start-template-config" />
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert doc:name="Assert payload" doc:id="4d171888-0292-45e8-ac18-a5c49d8f1e8a" message="The payload does not match">
+				<munit-tools:that><![CDATA[#[%dw 2.0
+import greetingemployeetestcaserecorder::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mule-project-kick-start-template-test-suite-post:\api\v1\employee:application\json" doc:id="c2a4a0d5-b00d-4b86-9645-1191741762f7" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Consume Reqres Employee Service" doc:id="38c2bec6-ec39-43fa-843f-3921b39069a7" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="0a87b20d-7310-47d3-ad80-81f2d0b44bde" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json  --- readUrl('classpath://createemployeetestcasemanual\mock_payload.dwl')]" mediaType="application/json " encoding="UTF-8" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:spy doc:name="Spy" doc:id="2c0d3800-3487-49cb-aab8-07df7730c1d4" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f5457cd2-d6a3-4946-9103-7b566705304a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert Before Reqres Service Call" doc:id="ba4d3b99-c38e-4d10-907b-1bc002aade56" >
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import  createemployeetestcasemanual::assert_expression_request_payload
+---
+assert_expression_request_payload::main({payload: payload})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert After Reqres Service Call" doc:id="4213f8aa-bfe7-49aa-a3f3-216a0c0611b1" >
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import  createemployeetestcasemanual::assert_expression_response_payload
+---
+assert_expression_response_payload::main({payload: payload})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Create Employee Request Payload" doc:id="82f8e926-52a2-497a-9e74-eb7eac5e4eac">
+				<munit:payload value="#[readUrl('classpath://createemployeetestcasemanual/set_event_payload.dwl')]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\api\v1\employee:application\json:mule-project-kick-start-template-config" doc:id="2770fa3e-b465-486b-862e-cb8e8510e842" name="post:\api\v1\employee:application\json:mule-project-kick-start-template-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert Create Employee Success Response" doc:id="db774624-fc0f-4fc5-a43a-ea7b2e3b422d">
+				<munit-tools:that><![CDATA[#[%dw 2.0
+import createemployeetestcasemanual::assert_expression_response_payload
+---
+assert_expression_response_payload::main({payload: payload})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Reqres Service call" doc:id="964696d2-6a8a-4b27-8682-6edcc42f5b2a" processor="http:request" times="1">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="0a87b20d-7310-47d3-ad80-81f2d0b44bde" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mule-project-kick-start-template-test-suite-post:\api\v1\employee:application\json:recorder" doc:id="c86e8393-b1dc-49ff-a31e-3bda1954f02e" description="Test" >
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock Consume Reqres Employee Service" doc:id="54cbf033-fc01-4915-9b39-5c25e857c12a" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="0a87b20d-7310-47d3-ad80-81f2d0b44bde" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json  --- readUrl('classpath://createemployeetestcaserecorder\mock_payload.dwl')]" mediaType="application/json " encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://createemployeetestcaserecorder\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://createemployeetestcaserecorder\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="450086d2-e7bc-48cd-9c73-44773a3ec508" >
+				<munit:payload value="#[output application/json  --- readUrl('classpath://createemployeetestcaserecorder\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json " />
+				<munit:attributes value="#[readUrl('classpath://createemployeetestcaserecorder\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://createemployeetestcaserecorder\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\api\v1\employee:application\json:mule-project-kick-start-template-config" doc:id="05700ac4-9ca4-4cdf-a7ec-de7743fa7890" name="post:\api\v1\employee:application\json:mule-project-kick-start-template-config" />
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert doc:name="Assert payload" doc:id="51ca61c7-a682-48e0-9b78-bf28c96d8da0" message="The payload does not match" >
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import createemployeetestcaserecorder::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mule-project-kick-start-template-test-suite-get:\api\v1\ping:mule-project-kick-start-template-configTest" doc:id="ce656f8e-f079-426c-b004-c8cd60380e3c" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\api\v1\ping:mule-project-kick-start-template-config" doc:id="c358448e-5d49-4995-9787-3909141fc5d2" name="get:\api\v1\ping:mule-project-kick-start-template-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="ca849f84-defb-4d20-a8da-91ff7a77322d" processor="ee:transform" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Set Response" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="e2b9183f-6505-4647-b511-3d0dd0c24cec" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="mule-project-kick-start-template-test-suite-get:\api\v1\health-check:mule-project-kick-start-template-configTest" doc:id="01c7a006-bcc7-4215-a515-89874bc34ef3" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\api\v1\health-check:mule-project-kick-start-template-config" doc:id="7dd46abf-654d-4772-8483-77a5c6b05182" name="get:\api\v1\health-check:mule-project-kick-start-template-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="33935f79-247e-4368-9bce-70c1aec5f542" processor="ee:transform" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Set Response" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="79964e47-4fd5-4a50-8154-6ed4be3b36a6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
