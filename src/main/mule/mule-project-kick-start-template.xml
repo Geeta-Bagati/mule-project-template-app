@@ -15,6 +15,7 @@
 		<logger level="INFO" doc:name="mule-project-kick-start-template-api started" doc:id="6cd45b3b-f9b4-4fee-9bf6-4850b916a6db" message='#[vars.correlationId default "" ++ " mule-project-kick-start-template-api started - at : " ++ now()]' />
 		<apikit:router config-ref="mule-project-kick-start-template-config" />
 		<logger level="INFO" doc:name="mule-project-kick-start-template-api ended" doc:id="407cbd87-1e2e-4e58-a705-4a4c10543dee" message='#[vars.correlationId default "" ++ " mule-project-kick-start-template-api ended - at : " ++ now()]' />
+		<error-handler ref="global-error-handler" />
 	</flow>
 	<flow name="mule-project-kick-start-template-console" doc:id="67ae5a96-d3a3-4ac5-b424-339aa826c81a">
 		<http:listener doc:name="Listener" doc:id="e473c95d-12bd-465b-a7d2-bde01716c321" config-ref="http-listener-config" path="/console/*">
@@ -41,6 +42,7 @@ output application/json
 				</ee:transform>
 			</otherwise>
 		</choice>
+		<error-handler ref="global-error-handler" />
 	</flow>
 	<flow name="get:\api\v1\ping:mule-project-kick-start-template-config" doc:id="e3cf0b1a-8d42-42ef-8dde-899477e78faa">
 		<logger level="INFO" doc:name="Start Log" doc:id="110d5131-f042-4081-8541-3f6f959ef61e" message='#[vars.correlationId default "" ++ " ping flow started - at : " ++ now()]' />
