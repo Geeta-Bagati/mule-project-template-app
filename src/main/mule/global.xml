@@ -28,7 +28,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 	<configuration-properties
 		doc:name="configuration-properties-env"
 		doc:id="dccce6b5-f945-4115-9bdf-9e510f4c52e5"
-		file="properties/${mule.env}.yaml " />
+		file="properties/${mule.env}.yaml" />
 	<secure-properties:config
 		name="configuration-properties-secured-env"
 		doc:name="Secure Properties Config"
